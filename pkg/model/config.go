@@ -1,9 +1,6 @@
 package model
 
-import (
-	"fmt"
-	"github.com/neucn/ipgw/pkg/utils"
-)
+import "github.com/neucn/ipgw/pkg/utils"
 
 type Config struct {
 	DefaultAccount string     `json:"default_account"`
@@ -11,11 +8,6 @@ type Config struct {
 }
 
 func (c *Config) AddAccount(username, password, secret string) error {
-	for _, account := range c.Accounts {
-		if account.Username == username {
-			return fmt.Errorf("account %s already exists \n", username)
-		}
-	}
 	encryptedPassword, err := utils.Encrypt([]byte(password), []byte(secret))
 	if err != nil {
 		return err
